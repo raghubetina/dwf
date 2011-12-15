@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Proposal:</b>
+  <%= @invitation.proposal_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%= @invitation.user_id %>
+</p>
+
+<p>
+  <b>Rsvp:</b>
+  <%= @invitation.rsvp %>
+</p>
+
+<p>
+  <b>Facebook request:</b>
+  <%= @invitation.facebook_request_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_invitation_path(@invitation) %> |
+<%= link_to 'Back', invitations_path %>

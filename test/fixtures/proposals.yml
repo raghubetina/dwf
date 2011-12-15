@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 1
+  deal_id: 1
+  proposed_date: 2011-12-13
+  proposed_time: 2011-12-13 14:29:53
+  min_companions: 1
+  max_companions: 1
+  tipped: 1
+  event_created: 1
+
+two:
+  user_id: 1
+  deal_id: 1
+  proposed_date: 2011-12-13
+  proposed_time: 2011-12-13 14:29:53
+  min_companions: 1
+  max_companions: 1
+  tipped: 1
+  event_created: 1

@@ -1,3 +1,175 @@
 // Place all the styles related to the main controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+	color: #666666;
+	font-family: 'Droid Sans', sans-serif;
+	font-weight: 400;
+}
+
+.shadow {
+	/* Shadow */
+	-moz-box-shadow: 2px 2px 2px #ccc;
+	-webkit-box-shadow: 2px 2px 2px #ccc;
+	box-shadow: 2px 2px 2px #ccc;
+	
+	/* Gradient */
+	background: #feffff; /* Old browsers */
+	background: -moz-linear-gradient(-45deg,  #feffff 0%, #efefef 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#feffff), color-stop(100%,#efefef)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(-45deg,  #feffff 0%,#efefef 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(-45deg,  #feffff 0%,#efefef 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(-45deg,  #feffff 0%,#efefef 100%); /* IE10+ */
+	background: linear-gradient(-45deg,  #feffff 0%,#efefef 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#efefef',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+	
+}
+
+
+.emphasis {
+	color: #555555;
+	font-weight: 700;
+	text-shadow: #fff 1px 1px 0;
+}
+
+#sidebar {
+	width: 239px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	float: right;
+	margin: auto;
+	overflow-y: scroll;
+	height: 100%;
+	border-left: 1px solid #EFEFEF;
+}
+
+#small_element {
+	width: 220px;
+	border: 1px solid #EFEFEF;
+	position: relative;
+	margin: 0 auto 10px;
+	background-color: #FAFAFA;
+}
+
+#small_image_container {
+	width: 210px;
+	margin: 5px auto 5px;
+}
+
+#small_image {
+	border: 5px solid white;
+}
+
+#small_content {
+	width: 200px;
+	margin: 5px auto;
+	font-size: small;
+	line-height: 125%;
+}
+
+#secondary {
+	width: 660px;
+	margin: auto;
+	position: relative;
+}
+
+#medium_element {
+	float: left;
+	width: 320px;
+	height: 274px;
+	border: 1px solid #EFEFEF;
+	position: relative;
+	margin: auto;
+	background-color: #FAFAFA;
+	padding-bottom: 10px;
+}
+
+#medium_image_container {
+	width: 310px;
+	margin: 5px auto 5px;
+}
+
+#medium_image {
+	border: 5px solid white;
+}
+
+#medium_content {
+	font-size: small;
+	width: 300px;
+	height: 70px;
+	margin: auto;
+	overflow: hidden;
+	line-height: 125%;
+}
+
+#primary {
+	width: 660px;
+	margin: 0 auto 10px;
+	position: relative;
+}
+
+#large_element {
+	margin: auto;
+	width: 658px;
+	height: 333px;
+	border: 1px solid #EFEFEF;
+	position: relative;
+	background-color: #FAFAFA;
+}
+
+#large_image_container {
+	float: left;
+	width: 450px;
+	margin: 5px 5px 10px 5px;
+}
+
+#large_image {
+	border: 5px solid white;
+}
+
+#large_title {
+	margin: 10px 10px 0;
+	width: 641px;
+	height: 35px;
+	overflow: hidden;
+}
+
+#large_content_container {
+	float: right;
+	width: 195px;
+	height: 280px;
+	overflow: hidden;
+}
+
+#large_content_neighborhood {
+	margin: 10px 5px;
+	height: 20px;
+	overflow: hidden;
+}
+
+#large_content_highlights {
+	margin: 10px 5px;
+	font-family: 'Droid Serif', serif;
+	font-style: italic;
+	line-height: 150%;
+}
+
+#deals_main {
+	width: 720px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+#deals_container {
+	width: 960px;
+	height: 640px;
+	position: relative;
+	margin: auto;
+}
+
+
+
+

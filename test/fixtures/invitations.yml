@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  proposal_id: 1
+  user_id: 1
+  rsvp: MyString
+  facebook_request_id: MyString
+
+two:
+  proposal_id: 1
+  user_id: 1
+  rsvp: MyString
+  facebook_request_id: MyString

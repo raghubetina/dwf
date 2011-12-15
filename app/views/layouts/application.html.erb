@@ -1,14 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
   <title>DealmeIn</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+
+	<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Droid+Serif:400italic' rel='stylesheet' type='text/css'>
+
 </head>
 <body>
-
-<%= yield %>
+	<%= link_to "Landing", root_url %> |
+	<%= link_to "Test Deals", "http://localhost:3000/main/test_deals" %> |
+	<%= link_to "Test Requests", "http://localhost:3000/main/test_requests" %><br/><br/>
+	
+	
+	<%= yield %>
 
 </body>
 </html>

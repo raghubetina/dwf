@@ -1,0 +1,49 @@
+<%= form_for(@proposal) do |f| %>
+  <% if @proposal.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@proposal.errors.count, "error") %> prohibited this proposal from being saved:</h2>
+
+      <ul>
+      <% @proposal.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br />
+    <%= f.number_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :deal_id %><br />
+    <%= f.number_field :deal_id %>
+  </div>
+  <div class="field">
+    <%= f.label :proposed_date %><br />
+    <%= f.date_select :proposed_date %>
+  </div>
+  <div class="field">
+    <%= f.label :proposed_time %><br />
+    <%= f.time_select :proposed_time %>
+  </div>
+  <div class="field">
+    <%= f.label :min_companions %><br />
+    <%= f.number_field :min_companions %>
+  </div>
+  <div class="field">
+    <%= f.label :max_companions %><br />
+    <%= f.number_field :max_companions %>
+  </div>
+  <div class="field">
+    <%= f.label :tipped %><br />
+    <%= f.number_field :tipped %>
+  </div>
+  <div class="field">
+    <%= f.label :event_created %><br />
+    <%= f.number_field :event_created %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

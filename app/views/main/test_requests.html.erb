@@ -1,0 +1,27 @@
+<div id="fb-root"></div>
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+<input type="button" onclick="sendRequestViaMultiFriendSelector(); return false;" value="Send Request to Many Users with MFS"/>
+
+<script>
+	FB.init({
+		appId  : '311149802239773',
+		status : true,
+		cookie : true,
+		oauth: true
+	});
+
+	function sendRequestViaMultiFriendSelector() {
+		FB.ui({method: 'apprequests',
+			message: 'My Great Request'
+		}, requestCallback);
+	}
+
+	function requestCallback(response) {
+		var request_id = response.request;
+		var guest_ids = response.to;
+		$.ajax({
+			url: '/facebook_requests_dialog_callback/data',
+			data: { request_id: request_id, guest_ids: guest_ids}
+		});
+	}
+</script>

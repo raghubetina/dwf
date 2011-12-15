@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @proposal.user_id %>
+</p>
+
+<p>
+  <b>Deal:</b>
+  <%= @proposal.deal_id %>
+</p>
+
+<p>
+  <b>Proposed date:</b>
+  <%= @proposal.proposed_date %>
+</p>
+
+<p>
+  <b>Proposed time:</b>
+  <%= @proposal.proposed_time %>
+</p>
+
+<p>
+  <b>Min companions:</b>
+  <%= @proposal.min_companions %>
+</p>
+
+<p>
+  <b>Max companions:</b>
+  <%= @proposal.max_companions %>
+</p>
+
+<p>
+  <b>Tipped:</b>
+  <%= @proposal.tipped %>
+</p>
+
+<p>
+  <b>Event created:</b>
+  <%= @proposal.event_created %>
+</p>
+
+
+<%= link_to 'Edit', edit_proposal_path(@proposal) %> |
+<%= link_to 'Back', proposals_path %>

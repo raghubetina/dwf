@@ -1,1 +1,55 @@
-hi
+<div id="fb-root"></div>
+<script>
+	window.fbAsyncInit = function() {
+		FB.init({
+			appId      : '311149802239773',
+			status     : true, 
+			cookie     : true,
+			xfbml      : true,
+			oauth      : true,
+		});
+		FB.getLoginStatus(function(response) {
+		  if (response.authResponse) {
+				var facebook_access_token = response.authResponse.accessToken;
+				var facebook_user_id = response.authResponse.userID;
+				$.ajax({
+					url: '/facebook_auth_response_callback/data',
+					data: { facebook_access_token: facebook_access_token, facebook_user_id: facebook_user_id},
+					success: function() {	
+	    			window.location = "http://localhost:3000/main/connected";
+					}
+				});
+		  } else {
+		    $("div.facebook_login").show();
+		  }
+		});
+	};
+	(function(d){
+     var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+     js = d.createElement('script'); js.id = id; js.async = true;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     d.getElementsByTagName('head')[0].appendChild(js);
+   }(document));
+</script>
+
+
+
+
+<div class="facebook_login" style="display: none">
+	<div class="fb-login-button" data-scope="email,user_checkins">
+    Login with Facebook
+  </div>
+</div>
+
+
+<script src="http://connect.facebook.net/en_US/all.js">
+</script>
+<script>
+	FB.init({
+		appId: '311149802239773', cookie: true,
+		status: true, xfbml: true
+	});
+		FB.Event.subscribe('auth.login', function () {
+		window.location = "http://localhost:3000";
+	});
+</script>

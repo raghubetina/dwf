@@ -1,0 +1,37 @@
+<h1>Listing proposals</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Deal</th>
+    <th>Proposed date</th>
+    <th>Proposed time</th>
+    <th>Min companions</th>
+    <th>Max companions</th>
+    <th>Tipped</th>
+    <th>Event created</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @proposals.each do |proposal| %>
+  <tr>
+    <td><%= proposal.user_id %></td>
+    <td><%= proposal.deal_id %></td>
+    <td><%= proposal.proposed_date %></td>
+    <td><%= proposal.proposed_time %></td>
+    <td><%= proposal.min_companions %></td>
+    <td><%= proposal.max_companions %></td>
+    <td><%= proposal.tipped %></td>
+    <td><%= proposal.event_created %></td>
+    <td><%= link_to 'Show', proposal %></td>
+    <td><%= link_to 'Edit', edit_proposal_path(proposal) %></td>
+    <td><%= link_to 'Destroy', proposal, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Proposal', new_proposal_path %>

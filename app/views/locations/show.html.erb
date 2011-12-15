@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Deal:</b>
+  <%= @location.deal_id %>
+</p>
+
+<p>
+  <b>Street address 1:</b>
+  <%= @location.street_address_1 %>
+</p>
+
+<p>
+  <b>Street address 2:</b>
+  <%= @location.street_address_2 %>
+</p>
+
+<p>
+  <b>Postal code:</b>
+  <%= @location.postal_code %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%= @location.country %>
+</p>
+
+<p>
+  <b>Lat:</b>
+  <%= @location.lat %>
+</p>
+
+<p>
+  <b>Lng:</b>
+  <%= @location.lng %>
+</p>
+
+<p>
+  <b>Phone number:</b>
+  <%= @location.phone_number %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%= @location.state %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%= @location.city %>
+</p>
+
+
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= link_to 'Back', locations_path %>

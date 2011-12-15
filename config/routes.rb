@@ -1,8 +1,24 @@
 DealmeIn::Application.routes.draw do
-  
   get "main/index"
+  
+  get "main/connected"
+  
+  get "main/test_deals"
+
+  get "main/test_requests"
+  
+  get "main/test_deals_layout"
+  
+  get "facebook_requests_dialog_callback/:data", :controller => "main", :action => "facebook_requests_dialog_callback"
+  
+  get "facebook_auth_response_callback/:data", :controller => "main", :action => "facebook_auth_response_callback"
 
   root :to => 'main#index'
+  resources :locations
+  resources :deals
+  resources :invitations
+  resources :proposals
+  resources :users
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -1,0 +1,63 @@
+<div id="deals_container">
+
+<div id="deals_main">
+	<div id="primary">
+		<div id="large_element" class="shadow">
+			<div id="large_title" class="emphasis">
+				<%= @deals[0]["title"] %>
+			</div>
+			<div id="large_image_container">
+				<img id="large_image" width="440" src="<%= @deals[0]["grid6ImageUrl"] %>"></img>
+			</div>
+			<div id="large_content_container">
+				<div id="large_content_neighborhood">
+					<% if @deals[0]["options"][0]["redemptionLocations"].length == 0 %>
+						<!-- No locations given -->
+					<% elsif @deals[0]["options"][0]["redemptionLocations"].length == 1 %>
+						<%= @deals[0]["options"][0]["redemptionLocations"][0]["neighborhood"] %>
+					<% else %>
+						Multiple Locations
+					<% end %>
+				</div>
+				<div id="large_content_highlights" style="font-size: small">
+					<%= @deals[0]["highlightsHtml"].html_safe %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="secondary">
+		<div id="medium_element" class="shadow">
+			<div id="medium_image_container">
+				<img id="medium_image" width="300" src="<%= @deals[1]["grid4ImageUrl"] %>"></img>
+			</div>
+			<div id="medium_content" class="emphasis">
+				<%= @deals[1]["title"] %>
+			</div>
+		</div>
+		<div id="medium_element" class="shadow" style="float: right">
+			<div id="medium_image_container">
+				<img id="medium_image" width="300" src="<%= @deals[2]["grid4ImageUrl"] %>"></img>
+			</div>
+			<div id="medium_content" class="emphasis">
+				<%= @deals[2]["title"] %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="sidebar">
+	<% @deals[3...@deals.count].each do |deal| %>
+	<div id="small_element" class="shadow">
+		<div id="small_image_container">
+			<img id="small_image" width="200" src="<%= deal["sidebarImageUrl"] %>"></img>
+		</div>
+		<div id="small_content" class="emphasis">
+				<%= deal["title"] %>
+		</div>
+	</div>
+	<% end %>
+</div>
+
+</div>
+

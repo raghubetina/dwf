@@ -1,0 +1,56 @@
+<%= @response %>
+
+<p>
+  <b>Email:</b>
+  <%= @user.email %>
+</p>
+
+<!-- Need to make this check for access token expiration -->
+<% if @user.facebook_access_token %>
+	<p>
+	  <b>Facebook:</b>
+	  <%= @user.facebook_id %>
+	</p>
+
+	<p>
+	  <b>Facebook access token:</b>
+	  <%= @user.facebook_access_token %>
+	</p>
+
+	<p>
+	  <b>First name:</b>
+	  <%= @user.first_name %>
+	</p>
+
+	<p>
+	  <b>Last name:</b>
+	  <%= @user.last_name %>
+	</p>
+
+	<p>
+	  <b>Location:</b>
+	  <%= @user.location_id %>
+	</p>
+
+	<p>
+	  <b>Location name:</b>
+	  <%= @user.location_name %>
+	</p>
+
+	<p>
+	  <b>Gender:</b>
+	  <%= @user.gender %>
+	</p>
+
+	<p>
+	  <b>Timezone:</b>
+	  <%= @user.timezone %>
+	</p>
+<% else %>
+	<%= link_to "Authorize Facebook", "https://www.facebook.com/dialog/oauth?client_id=311149802239773&redirect_uri=http://localhost:3000/facebook_oauth_callback/" %>
+<% end %>
+
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
+
