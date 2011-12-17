@@ -2,10 +2,28 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
 body {
 	color: #666666;
 	font-family: 'Droid Sans', sans-serif;
 	font-weight: 400;
+}
+
+a:link {
+	color:#555555;
+	text-decoration: none;
+}
+a:visited {
+	color:#555555;
+	text-decoration: none;
+}
+a:hover {
+	color:#FF9933;
+	text-decoration: none;
+}
+a:active {
+	color:#0000FF;
+	text-decoration: none;
 }
 
 .shadow {
@@ -31,6 +49,18 @@ body {
 	color: #555555;
 	font-weight: 700;
 	text-shadow: #fff 1px 1px 0;
+}
+
+.highlight {
+	font-family: 'Droid Serif', serif;
+	font-style: italic;
+	line-height: 150%;
+	font-size: small;
+}
+
+.neighborhood {
+	font-weight: 700;
+	color: #999999;
 }
 
 #sidebar {
@@ -78,11 +108,10 @@ body {
 #medium_element {
 	float: left;
 	width: 320px;
-	height: 274px;
+	height: 260px;
 	border: 1px solid #EFEFEF;
 	position: relative;
 	margin: auto;
-	background-color: #FAFAFA;
 	padding-bottom: 10px;
 }
 
@@ -96,7 +125,6 @@ body {
 }
 
 #medium_content {
-	font-size: small;
 	width: 300px;
 	height: 70px;
 	margin: auto;
@@ -113,16 +141,15 @@ body {
 #large_element {
 	margin: auto;
 	width: 658px;
-	height: 333px;
+	height: 341px;
 	border: 1px solid #EFEFEF;
 	position: relative;
-	background-color: #FAFAFA;
 }
 
 #large_image_container {
 	float: left;
 	width: 450px;
-	margin: 5px 5px 10px 5px;
+	margin: 5px 5px 0 5px;
 }
 
 #large_image {
@@ -130,10 +157,12 @@ body {
 }
 
 #large_title {
+	font-size: large;
 	margin: 10px 10px 0;
 	width: 641px;
-	height: 35px;
+	height: 44px;
 	overflow: hidden;
+	line-height: 125%;
 }
 
 #large_content_container {
@@ -151,9 +180,6 @@ body {
 
 #large_content_highlights {
 	margin: 10px 5px;
-	font-family: 'Droid Serif', serif;
-	font-style: italic;
-	line-height: 150%;
 }
 
 #deals_main {
@@ -170,6 +196,114 @@ body {
 	margin: auto;
 }
 
+#deal_detail_main {
+	width: 898px;
+	margin: 0 auto 20px auto;
+	padding-bottom: 20px;
+	border: 1px solid #EFEFEF;
+}
+
+#detail_title {
+	margin: 10px 10px 0;
+	width: 878px;
+	height: 44px;
+	overflow: hidden;
+	line-height: 125%;
+	font-size: large;
+}
+
+#detail_content_container {
+	width: 390px;
+	padding-right: 40px;
+}
+
+#detail_content_neighborhood {
+	margin: 10px 5px;
+	height: 20px;
+	overflow: hidden;
+}
+
+#detail_content_pitch {
+	margin: 10px 5px;
+	font-family: 'Droid Serif', serif;
+	line-height: 150%;
+	color: #000000;
+}
+
+p {
+	margin-bottom: 1em;
+}
+
+li {
+	list-style-type: disc;
+	margin-left: 40px;
+}
+
+#deal_detail_left{
+	float: left;
+	width: 450px;
+}
+
+#deal_detail_right {
+	float: right;
+}
 
 
+#deal_detail_left_content {
+	width: 210px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	float: left;
 
+}
+
+.clear {
+	clear: both;
+}
+
+#price {
+	font-size: large;
+	font-weight: 700;
+	color: black;
+	padding: 10px;
+	background-color: #E0FFCD;
+	border-bottom: thin solid white;
+	}
+
+#savings {
+	color: black;
+	background-color: #CFEEF5;
+	font-family: 'Droid Serif', serif;
+	padding: 10px;
+	border-bottom: thin solid white;
+}
+
+#timeleft {
+	background-color: #DDEACF;
+	font-family: 'Droid Serif', serif;
+	padding: 10px;
+	margin-bottom: 10px;
+}
+
+#caption {
+	color: black;
+	text-align: center;
+	width: 440px;
+	margin-left: 10px;
+	margin-bottom: 20px;
+}
+
+#detail_fineprint
+{
+	width: 190px;
+	margin: auto;
+}
+
+#detail_location {
+	line-height: 150%;
+
+}
+
+#detail_address {
+
+}

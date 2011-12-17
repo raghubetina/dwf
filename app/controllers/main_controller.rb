@@ -34,11 +34,17 @@ class MainController < ApplicationController
   def test_requests
   end
   
-  def test_deals
-    @deals = JSON.parse(open("https://api.groupon.com/v2/deals.json?client_id=7da6100853a410b2713f7172cd780948216dc395").read)["deals"]
+  def deals
+    @deals = JSON.parse(open("https://api.groupon.com/v2/deals.json?client_id=7da6100853a410b2713f7172cd780948216dc395&show=title,announcementTitle,grid4ImageUrl,sidebarImageUrl,grid6ImageUrl,options,highlightsHtml").read)["deals"]
   end
   
-  def test_deals_layout
+  def deals_layout
+    
+  end
+  
+  def deal_detail
+    deal_id = params[:deal_id]
+    @deal = JSON.parse(open("https://api.groupon.com/v2/deals/#{deal_id}.json?client_id=7da6100853a410b2713f7172cd780948216dc395").read)["deal"]
     
   end
   

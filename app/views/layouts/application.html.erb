@@ -2,22 +2,74 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
   xmlns:fb="https://www.facebook.com/2008/fbml">
 <head>
-  <title>DealmeIn</title>
+  <title>Deals with Friends</title>
   <%= stylesheet_link_tag    "application" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 
 	<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=Droid+Serif:400italic' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 
 </head>
 <body>
-	<%= link_to "Landing", root_url %> |
-	<%= link_to "Test Deals", "http://localhost:3000/main/test_deals" %> |
-	<%= link_to "Test Requests", "http://localhost:3000/main/test_requests" %><br/><br/>
+	<div id="fb-root"></div>
+	<script>
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId      : '311149802239773',
+				status     : true, 
+				cookie     : true,
+				xfbml      : true,
+				oauth      : true,
+			});
+			FB.getLoginStatus(function(response) {
+			  if (response.authResponse) {
+					var facebook_access_token = response.authResponse.accessToken;
+					var facebook_user_id = response.authResponse.userID;
+					$.ajax({
+						url: '/facebook_auth_response_callback/data',
+						data: { facebook_access_token: facebook_access_token, facebook_user_id: facebook_user_id}
+					});
+			  } else {
+			    $("div.facebook_login").show();
+			  }
+			});
+		};
+		(function(d){
+	     var js, id = 'facebook-jssdk'; if (d.getElementById(id)) {return;}
+	     js = d.createElement('script'); js.id = id; js.async = true;
+	     js.src = "//connect.facebook.net/en_US/all.js";
+	     d.getElementsByTagName('head')[0].appendChild(js);
+	   }(document));
+	</script>
 	
+	<div id="all_content" style="width: 960px; margin: auto;">
 	
-	<%= yield %>
+	<div style="margin: 20px 0 20px 40px;">
+		<a href="http://localhost:3000/main/deals"><%= image_tag("logo.png") %></a>
 
+		<div class="facebook_login" style="display: none; float: right; margin-right: 45px; margin-top: 20px">
+			<div class="fb-login-button" data-scope="email,user_checkins">
+		    Login with Facebook
+		  </div>
+		</div>	
+		<script src="http://connect.facebook.net/en_US/all.js">
+		</script>
+		<script>
+			FB.init({
+				appId: '311149802239773', cookie: true,
+				status: true, xfbml: true
+			});
+				FB.Event.subscribe('auth.login', function () {
+			$("div.facebook_login").fadeToggle("10000");
+			});
+		</script>
+	</div>
+	<%= yield %>
+	
+	<div style="width: 200px; margin: auto;">
+		<%= image_tag("powered_by_groupon.png") %>
+	</div>
+	</div>
 </body>
 </html>

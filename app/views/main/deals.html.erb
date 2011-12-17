@@ -1,0 +1,71 @@
+<div id="deals_container">
+
+<div id="deals_main">
+	<div id="primary">
+		<div id="large_element" class="shadow">
+			<div id="large_title" class="emphasis">
+				<a href="<%= "http://localhost:3000/main/deal_detail/#{@deals[0]["id"]}" %>"><%= @deals[0]["announcementTitle"] %></a>
+			</div>
+			<div id="large_image_container">
+				<a href="<%= "http://localhost:3000/main/deal_detail/#{@deals[0]["id"]}" %>">
+					<img id="large_image" width="440" height="267" src="<%= @deals[0]["grid6ImageUrl"] %>"></img>
+				</a>
+			</div>
+			<div id="large_content_container">
+				<div id="large_content_neighborhood" class="neighborhood">
+					<% if @deals[0]["options"][0]["redemptionLocations"].length == 0 %>
+						<!-- No locations given -->
+					<% elsif @deals[0]["options"][0]["redemptionLocations"].length == 1 %>
+						<%= @deals[0]["options"][0]["redemptionLocations"][0]["neighborhood"] %>
+					<% else %>
+						Multiple Locations
+					<% end %>
+				</div>
+				<div id="large_content_highlights" class="highlight">
+					<%= @deals[0]["highlightsHtml"].html_safe %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id="secondary">
+		<div id="medium_element" class="shadow">
+			<div id="medium_image_container">
+				<a href="<%= "http://localhost:3000/main/deal_detail/#{@deals[1]["id"]}" %>">
+					<img id="medium_image" width="300" height="182" src="<%= @deals[1]["grid4ImageUrl"] %>"></img>
+				</a>
+			</div>
+			<div id="medium_content" class="emphasis">
+				<a href="<%= "http://localhost:3000/main/deal_detail/#{@deals[1]["id"]}" %>"><%= @deals[1]["announcementTitle"] %></a>
+			</div>
+		</div>
+		<div id="medium_element" class="shadow" style="float: right">
+			<div id="medium_image_container">
+				<a href="<%= "http://localhost:3000/main/deal_detail/#{@deals[2]["id"]}" %>">
+					<img id="medium_image" width="300" height="182" src="<%= @deals[2]["grid4ImageUrl"] %>"></img>
+				</a>
+			</div>
+			<div id="medium_content" class="emphasis">
+				<a href="<%= "http://localhost:3000/main/deal_detail/#{@deals[2]["id"]}" %>"><%= @deals[2]["announcementTitle"] %></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="sidebar">
+	<% @deals[3...@deals.count].each do |deal| %>
+	<div id="small_element" class="shadow">
+		<div id="small_image_container">
+			<a href="<%= "http://localhost:3000/main/deal_detail/#{deal["id"]}" %>">
+				<img id="small_image" width="200" height="121" src="<%= deal["sidebarImageUrl"] %>"></img>
+			</a>
+		</div>
+		<div id="small_content" class="emphasis">
+				<a href="<%= "http://localhost:3000/main/deal_detail/#{deal["id"]}" %>"><%= deal["announcementTitle"] %></a>
+		</div>
+	</div>
+	<% end %>
+</div>
+
+</div>
+

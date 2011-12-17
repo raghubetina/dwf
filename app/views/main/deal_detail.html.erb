@@ -1,0 +1,167 @@
+<div id="fb-root"></div>
+<script src="http://connect.facebook.net/en_US/all.js"></script>
+<script type="text/javascript"
+    src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDYnan9mz4BbB9lwaoV_euxD8-ifJZ-uBk&sensor=false">
+</script>
+
+<script type="text/javascript">
+  function initialize() {
+    var latlng = new google.maps.LatLng(<%= @deal["options"][0]["redemptionLocations"][0]["lat"].to_f %>, <%= @deal["options"][0]["redemptionLocations"][0]["lng"].to_f %>);
+    var myOptions = {
+		  panControl: false,
+		  mapTypeControl: false,
+		  scaleControl: false,
+		  overviewMapControl: true,
+      zoom: 8,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+			zoomControl: true,
+			zoomControlOptions: {
+				style: google.maps.ZoomControlStyle.SMALL
+			}
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+        myOptions);
+		var marker = new google.maps.Marker({
+			position: latlng,
+			map: map,
+			title:"Venue"
+		});
+  }
+</script>
+
+
+<div id="deal_detail_main" class="shadow">
+
+	<div id="detail_title" class="emphasis">
+		<a href="<%= @deal["dealUrl"] %>" target="_blank"><%= @deal["title"] %></a>
+	</div>
+
+	
+	<div id="deal_detail_left">
+		
+		<div id="detail_image">
+		
+			<div id="large_image_container">
+				<a href="<%= @deal["dealUrl"] %>" target="_blank">
+					<img id="large_image" width="440" height="267" src="<%= @deal["grid6ImageUrl"] %>"></img>
+				</a>
+			</div>
+			<div id="caption" class="highlight">
+				<%= @deal["highlightsHtml"].html_safe %>
+			</div>
+		
+		</div>
+		
+		<div class="clear"></div>
+		
+		
+		<div id="purchase_info">
+		
+			<div id="deal_detail_left_content">
+				<div id="price" align="center">
+					<%= @deal["options"][0]["price"]["formattedAmount"] %> for <%= @deal["options"][0]["value"]["formattedAmount"] %>
+				</div>
+				<div id="savings" align="center">
+					You save <%= @deal["options"][0]["discount"]["formattedAmount"] %> (<%= @deal["options"][0]["discountPercent"] %>%)
+				</div>
+				<div id="timeleft" align="center">
+					Time left: <%= display_time(Time.parse(@deal["endAt"]) - Time.new) %>
+				</div>
+			</div>
+		
+			<div id="deal_detail_left_content" class="highlight" style="float: right">
+				<a href="#" id="target"><%= image_tag("invite_button.png") %></a>
+				<a href="<%= @deal["options"][0]["buyUrl"] %>" target="_blank"><%= image_tag("buy_button.png") %></a>
+			</div>
+		
+		</div>
+		
+		<div class="clear"></div>
+		
+		<div class="detail_details">
+			<div id="deal_detail_left_content" class="highlight">
+				<div id="detail_fineprint">
+					<%= @deal["finePrint"].html_safe %>
+				</div>
+			</div>
+			<div id="deal_detail_left_content" style="float: right">
+				<div id="detail_location">
+					<div style="font-weight: 700; margin-bottom: 5px;">
+						<a href="<%= @deal["merchant"]["websiteUrl"] %>" target="_blank"><%= @deal["merchant"]["name"] %></a>
+					</div>
+					<div id="detail_address">
+						<% if @deal["options"][0]["redemptionLocations"][0]["streetAddress1"].present? %>
+							<%= @deal["options"][0]["redemptionLocations"][0]["streetAddress1"] %><br/>
+						<% end %>
+						<% if @deal["options"][0]["redemptionLocations"][0]["streetAddress2"].present? %>
+							<%= @deal["options"][0]["redemptionLocations"][0]["streetAddress2"] %><br/>
+						<% end %>
+						<%= @deal["options"][0]["redemptionLocations"][0]["city"] %>, <%= @deal["options"][0]["redemptionLocations"][0]["state"] %> <%= @deal["options"][0]["redemptionLocations"][0]["postalCode"] %><br/> 
+						<% if @deal["options"][0]["redemptionLocations"][0]["phoneNumber"].present? %>
+							<%= @deal["options"][0]["redemptionLocations"][0]["phoneNumber"] %><br/>
+						<% end %>
+					</div>
+					<div id="map_canvas" style="width:100%; height:200px; margin-top: 10px;"></div>
+				
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div id="deal_detail_right">
+		<div id="detail_content_container">
+			<div id="detail_content_neighborhood" class="neighborhood">
+				<% if @deal["options"][0]["redemptionLocations"].length == 0 %>
+					<!-- No locations given -->
+				<% elsif @deal["options"][0]["redemptionLocations"].length == 1 %>
+					<%= @deal["options"][0]["redemptionLocations"][0]["neighborhood"] %>
+				<% else %>
+					Multiple Locations
+				<% end %>
+			</div>
+			<div id="detail_content_pitch">
+				<%= @deal["pitchHtml"].html_safe %>
+			</div>
+		</div>
+	</div>	
+	<div class="clear">
+	</div>
+</div>
+
+
+<script>
+	FB.init({
+		appId  : '311149802239773',
+		status : true,
+		cookie : true,
+		oauth: true
+	});
+
+	function sendRequestViaMultiFriendSelector() {
+		FB.ui({method: 'apprequests',
+			message: 'My Great Request'
+		}, requestCallback);
+	}
+
+	function requestCallback(response) {
+		var request_id = response.request;
+		var guest_ids = response.to;
+		$.ajax({
+			url: '/facebook_requests_dialog_callback/data',
+			data: { request_id: request_id, guest_ids: guest_ids}
+		});
+	}
+</script>
+
+<script>
+	$('#target').click(function() {
+	  sendRequestViaMultiFriendSelector();
+	});
+</script>
+
+<script>
+	initialize();
+</script>

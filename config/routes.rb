@@ -3,17 +3,19 @@ DealmeIn::Application.routes.draw do
   
   get "main/connected"
   
-  get "main/test_deals"
+  get "main/deals"
+  
+  get "main/deal_detail/:deal_id", :controller => "main", :action => "deal_detail"
 
   get "main/test_requests"
   
-  get "main/test_deals_layout"
+  get "main/deals_layout"
   
   get "facebook_requests_dialog_callback/:data", :controller => "main", :action => "facebook_requests_dialog_callback"
   
   get "facebook_auth_response_callback/:data", :controller => "main", :action => "facebook_auth_response_callback"
 
-  root :to => 'main#index'
+  root :to => 'main#deals'
   resources :locations
   resources :deals
   resources :invitations
