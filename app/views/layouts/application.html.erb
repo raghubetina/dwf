@@ -9,6 +9,10 @@
 
 	<link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	
+	<%= stylesheet_link_tag "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/redmond/jquery-ui.css", "application" %>
+	<%= javascript_include_tag "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", "http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.1/jquery-ui.min.js", "application" %>
+	
 
 </head>
 <body>
@@ -23,14 +27,21 @@
 				oauth      : true,
 			});
 			FB.getLoginStatus(function(response) {
-			  if (response.authResponse) {
+			  if (response.status === 'connected') {
 					var facebook_access_token = response.authResponse.accessToken;
 					var facebook_user_id = response.authResponse.userID;
 					$.ajax({
 						url: '/facebook_auth_response_callback/data',
-						data: { facebook_access_token: facebook_access_token, facebook_user_id: facebook_user_id}
+						data: { facebook_access_token: facebook_access_token, facebook_user_id: facebook_user_id }
 					});
-			  } else {
+			  }	else if (response.status === 'not_authorized') {
+					    //
+				}
+				else {
+					$.ajax({
+						url: '/facebook_auth_response_callback/data',
+						data: { unknown: "1"}
+					});
 			    $("div.facebook_login").show();
 			  }
 			});
@@ -45,31 +56,49 @@
 	
 	<div id="all_content" style="width: 960px; margin: auto;">
 	
-	<div style="margin: 20px 0 20px 40px;">
-		<a href="http://localhost:3000/main/deals"><%= image_tag("logo.png") %></a>
+		<div style="margin: 20px 0 20px 40px;">
+			<a href="http://localhost:3000/main/deals"><%= image_tag("logo.png") %></a>
 
-		<div class="facebook_login" style="display: none; float: right; margin-right: 45px; margin-top: 20px">
-			<div class="fb-login-button" data-scope="email,user_checkins">
-		    Login with Facebook
-		  </div>
-		</div>	
-		<script src="http://connect.facebook.net/en_US/all.js">
-		</script>
-		<script>
-			FB.init({
-				appId: '311149802239773', cookie: true,
-				status: true, xfbml: true
-			});
+			<div class="facebook_login" style="display: none; float: right; margin-right: 45px; margin-top: 20px">
+				<div class="fb-login-button" data-scope="email,create_event">
+			    Connect to Facebook
+			  </div>
+			</div>	
+			<script src="http://connect.facebook.net/en_US/all.js">
+			</script>
+			<script>
+				FB.init({
+					appId: '311149802239773',
+					cookie: true,
+					status: true,
+					xfbml: true,	
+					oauth      : true,
+				});
 				FB.Event.subscribe('auth.login', function () {
-			$("div.facebook_login").fadeToggle("10000");
-			});
-		</script>
-	</div>
-	<%= yield %>
+					$("div.facebook_login").fadeToggle("10000");
+					FB.getLoginStatus(function(response) {
+					  if (response.authResponse) {
+							var facebook_access_token = response.authResponse.accessToken;
+							var facebook_user_id = response.authResponse.userID;
+							$.ajax({
+								url: '/facebook_auth_response_callback/data',
+								data: { facebook_access_token: facebook_access_token, facebook_user_id: facebook_user_id}
+							});
+					  } else {
+							$.ajax({
+								url: '/facebook_auth_response_callback/data',
+								data: { unknown: "1"}
+							});
+					    $("div.facebook_login").show();
+					  }
+					});				
+				
+				});
+			</script>
+		</div>
 	
-	<div style="width: 200px; margin: auto;">
-		<%= image_tag("powered_by_groupon.png") %>
-	</div>
+		<%= yield %>
+	
 	</div>
 </body>
 </html>

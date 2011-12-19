@@ -279,6 +279,7 @@ li {
 }
 
 #timeleft {
+	color: black;
 	background-color: #DDEACF;
 	font-family: 'Droid Serif', serif;
 	padding: 10px;
@@ -306,4 +307,54 @@ li {
 
 #detail_address {
 
+}
+
+#guest_list {
+	margin-top: 10px;
+	margin-left: 5px;
+	color: black;
+}
+
+#guest {
+	color: black;
+	height: 50px;
+	position: relative;
+	margin-bottom: 10px;
+}
+
+#guest_name {
+	position: absolute;
+	top: 15px;
+	left: 60px;
+}
+
+#event_info {
+	color: black;
+	margin-top: 10px;
+	padding: 10px;
+	background-color: #CFEEF5;
+	line-height: 125%;
+}
+
+#proposal_datetimepicker {
+	text-align: center;
+	width: 250px;
+	height: 30px;
+	font-size: large;
+}
+
+#min_companions {
+	width: 60px;
+	height: 30px;
+	font-size: large;
+	text-align: right;
+}
+
+.field {
+	margin-bottom: 10px;
+}
+
+#update_proposal {
+	text-align: center;
+	font-weight: 700;
 }

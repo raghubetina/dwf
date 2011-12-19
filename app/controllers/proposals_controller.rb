@@ -14,7 +14,31 @@ class ProposalsController < ApplicationController
   # GET /proposals/1.json
   def show
     @proposal = Proposal.find(params[:id])
-
+    @deal = JSON.parse(open("https://api.groupon.com/v2/deals/#{@proposal.groupon_id}.json?client_id=7da6100853a410b2713f7172cd780948216dc395").read)["deal"]
+    if @proposal.proposed_datetime
+      @default_datetime = @proposal.proposed_datetime.strftime("%m/%d/%Y @ %l:%M %P")
+    end
+    @option = @deal['options'].first
+    @location = @option['redemptionLocations'].first if @option['redemptionLocations'].any?
+    if @location && @location["lat"] && @location["lng"]
+       @coords = [ @location["lat"].to_f, @location["lng"].to_f ]
+    end
+    
+    if @proposal.proposed_datetime
+		  @placeholder = @proposal.proposed_datetime.strftime("%m/%d/%Y @ %l:%M %P")
+		end
+    
+    @creator = @proposal.user_id
+    @guests_data = Array.new
+    @proposal.invitations.each do |invitation|
+      @guests_data << [invitation.facebook_user_id, invitation.rsvp]
+    end
+    
+    @guests = Array.new
+    @guests_data.each do |guest_data|
+      @guests << [JSON.parse(open("https://graph.facebook.com/#{guest_data[0]}").read), guest_data[1]]
+    end
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @proposal }
@@ -26,6 +50,11 @@ class ProposalsController < ApplicationController
   def new
     @proposal = Proposal.new
 
+    @proposal.user_id = session[:user_id]
+    @proposal.deal_id = params["deal_id"].to_i
+    @proposal.save
+    
+    
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @proposal }
@@ -57,6 +86,12 @@ class ProposalsController < ApplicationController
   # PUT /proposals/1.json
   def update
     @proposal = Proposal.find(params[:id])
+    
+    @proposal.min_companions = params[:min_companions]
+    if params[:proposal_datetimepicker].present?
+      @proposal.proposed_datetime = DateTime.strptime(params[:proposal_datetimepicker], "%m/%d/%Y @ %l:%M %P")
+    end
+    @proposal.save
 
     respond_to do |format|
       if @proposal.update_attributes(params[:proposal])
@@ -80,4 +115,9 @@ class ProposalsController < ApplicationController
       format.json { head :ok }
     end
   end
+  
+  def latest
+    redirect_to proposal_path(current_user.proposals.last)
+  end
+  
 end

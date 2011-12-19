@@ -1,45 +1,234 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>User:</b>
-  <%= @proposal.user_id %>
-</p>
-
-<p>
-  <b>Deal:</b>
-  <%= @proposal.deal_id %>
-</p>
-
-<p>
-  <b>Proposed date:</b>
-  <%= @proposal.proposed_date %>
-</p>
-
-<p>
-  <b>Proposed time:</b>
-  <%= @proposal.proposed_time %>
-</p>
-
-<p>
-  <b>Min companions:</b>
-  <%= @proposal.min_companions %>
-</p>
-
-<p>
-  <b>Max companions:</b>
-  <%= @proposal.max_companions %>
-</p>
-
-<p>
-  <b>Tipped:</b>
-  <%= @proposal.tipped %>
-</p>
-
-<p>
-  <b>Event created:</b>
-  <%= @proposal.event_created %>
-</p>
+<script type="text/javascript"
+    src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDYnan9mz4BbB9lwaoV_euxD8-ifJZ-uBk&sensor=false">
+</script>
 
 
-<%= link_to 'Edit', edit_proposal_path(@proposal) %> |
-<%= link_to 'Back', proposals_path %>
+<script type="text/javascript">
+  function initialize() {
+    var latlng = new google.maps.LatLng(<%= @coords %>);
+    var myOptions = {
+		  panControl: false,
+		  mapTypeControl: false,
+		  scaleControl: false,
+		  overviewMapControl: true,
+      zoom: 14,
+      center: latlng,
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+			zoomControl: true,
+			zoomControlOptions: {
+				style: google.maps.ZoomControlStyle.SMALL
+			}
+    };
+    var map = new google.maps.Map(document.getElementById("map_canvas"),
+        myOptions);
+		var marker = new google.maps.Marker({
+			position: latlng,
+			map: map,
+			title:"Venue"
+		});
+  }
+</script>
+
+
+<div id="deal_detail_main" class="shadow">
+
+	<div id="detail_title" class="emphasis">
+		<a href="<%= @deal["dealUrl"] %>" target="_blank"><%= @deal["title"] %></a>
+	</div>
+
+	
+	<div id="deal_detail_left">
+		
+		<div id="detail_image">
+		
+			<div id="large_image_container">
+				<a href="<%= @deal["dealUrl"] %>" target="_blank">
+					<img id="large_image" width="440" height="267" src="<%= @deal["grid6ImageUrl"] %>"></img>
+				</a>
+			</div>
+			<div id="caption" class="highlight">
+				<%= @deal["highlightsHtml"].html_safe %>
+			</div>
+		
+		</div>
+		
+		<div class="clear"></div>
+		
+		
+		<div id="purchase_info">
+		
+			<div id="deal_detail_left_content">
+				<div id="price" align="center">
+					<%= @deal["options"][0]["price"]["formattedAmount"] %> for <%= @deal["options"][0]["value"]["formattedAmount"] %>
+				</div>
+				<div id="savings" align="center">
+					You save <%= @deal["options"][0]["discount"]["formattedAmount"] %> (<%= @deal["options"][0]["discountPercent"] %>%)
+				</div>
+				<div id="timeleft" align="center">
+					Time left: <%= display_time(Time.parse(@deal["endAt"]) - Time.new) %>
+				</div>
+			</div>
+		
+			<div id="deal_detail_left_content" class="highlight" style="float: right">
+				<a href="#" id="target"><%= image_tag("invite_button.png") %></a>
+				<a href="<%= @deal["options"][0]["buyUrl"] %>" target="_blank"><%= image_tag("buy_button.png") %></a>
+			</div>
+		
+		</div>
+		
+		<div class="clear"></div>
+		
+		<div class="detail_details">
+			<div id="deal_detail_left_content" class="highlight">
+				<div id="detail_fineprint">
+					<%= @deal["finePrint"].html_safe %>
+				</div>
+			</div>
+			<div id="deal_detail_left_content" style="float: right">
+				<div id="detail_location">
+					<div style="font-weight: 700; margin-bottom: 5px;">
+						<a href="<%= @deal["merchant"]["websiteUrl"] %>" target="_blank"><%= @deal["merchant"]["name"] %></a>
+					</div>
+					<% if @location %>
+					<div id="detail_address">
+						<% if @deal["options"][0]["redemptionLocations"][0]["streetAddress1"].present? %>
+							<%= @deal["options"][0]["redemptionLocations"][0]["streetAddress1"] %><br/>
+						<% end %>
+						<% if @deal["options"][0]["redemptionLocations"][0]["streetAddress2"].present? %>
+							<%= @deal["options"][0]["redemptionLocations"][0]["streetAddress2"] %><br/>
+						<% end %>
+						<%= @deal["options"][0]["redemptionLocations"][0]["city"] %>, <%= @deal["options"][0]["redemptionLocations"][0]["state"] %> <%= @deal["options"][0]["redemptionLocations"][0]["postalCode"] %><br/> 
+						<% if @deal["options"][0]["redemptionLocations"][0]["phoneNumber"].present? %>
+							<%= @deal["options"][0]["redemptionLocations"][0]["phoneNumber"] %><br/>
+						<% end %>
+					</div>
+					<div id="map_canvas" style="width:100%; height:200px; margin-top: 10px;"></div>
+					<% end %>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div id="deal_detail_right">
+		<div id="detail_content_container">
+			<div id="event_info">
+				<% if @proposal.user_id == session[:user_id] %>
+				<div id="update_proposal">
+					<%= form_tag proposal_url(@proposal), :method => "put" do  %>
+					  <div class="field">
+							<p>When do you want to go?</p>
+							<%= text_field_tag :proposal_datetimepicker, @default_datetime  %>
+					  </div>
+					  <div class="field">
+					    <p>What's the minimum number of companions you want to commit before the deal tips?</p>
+					    <%= number_field_tag :min_companions, @proposal.min_companions %>
+					  </div>
+					  <div class="actions">
+					    <%= image_submit_tag("update_proposal_button.png") %>
+					  </div>
+					<% end %>
+				</div>
+				<% else %>
+					<div id="update_proposal">
+						<% if @proposal.proposed_datetime %>
+							<p>Scheduled for: <%= @proposal.proposed_datetime.strftime("%m/%d/%Y @ %l:%M %P") %></p>
+						<% else %>
+							<p>No date chosen by proposal creator.</p>
+						<% end %>
+						<% if @proposal.min_companions %>
+							<p>Minimum companions needed to tip: <%= @proposal.min_companions %></p>
+							<% if @proposal.min_companions - @guests.count {|guest| guest[1] == "Yes" } == 0 %> 
+								<p>Deal tipped! Go <a href="<%= @deal["options"][0]["buyUrl"] %>" target="_blank">BUY</a> your Groupon!</p>
+							<% end %>
+						<% else %>
+							<p>No minimum number of companions set by proposal creator.</p>
+						<% end %>
+						<div class="actions">
+					    <a href="<%= "http://localhost:3000/rsvp/#{@proposal.id}/Yes" %>"><%= image_tag("count_me_in_button.png") %></a>
+						  <a href="<%= "http://localhost:3000/rsvp/#{@proposal.id}/No" %>"><%= image_tag("no_thanks_button.png") %></a>
+					  </div>
+					</div>
+				<% end %>
+				<div id="guest_list">
+					<p style="font-weight: 700">Creator</p>
+					<div id="guest">
+						<img src="<%= "https://graph.facebook.com/#{@proposal.user.facebook_user_id}/picture" %>"></img>
+						<div id="guest_name"><%= @proposal.user.first_name + " " + @proposal.user.last_name  %></div>
+					</div>
+					<% if @proposal.min_companions %>
+						<p><%= pluralize(@guests.count {|guest| guest[1] == "Yes" }, "companions") %> committed -- 
+							<% if @proposal.min_companions - @guests.count {|guest| guest[1] == "Yes" } == 0 %> 
+								the party's on! Go <a href="<%= @deal["options"][0]["buyUrl"] %>" target="_blank">BUY</a> your Groupon!
+							<% else %>
+								<%= @proposal.min_companions - @guests.count {|guest| guest[1] == "Yes" } %> more needed for the deal to tip!
+							<% end %>
+						</p>
+					<% end %>
+					<p style="font-weight: 700">Invited</p>
+					<% @guests.each do |guest| %>
+						<div id="guest">
+							<img src="<%= "https://graph.facebook.com/#{guest[0]["id"]}/picture" %>"></img>
+							<div id="guest_name"><%= guest[0]["first_name"] + " " + guest[0]["last_name"] %> | <%= guest[1] %></div>
+						</div>
+					<% end %>
+				</div>
+			</div>
+			
+			<div id="detail_content_neighborhood" class="neighborhood">
+				<% if @deal["options"][0]["redemptionLocations"].length == 0 %>
+					<!-- No locations given -->
+				<% elsif @deal["options"][0]["redemptionLocations"].length == 1 %>
+					<%= @deal["options"][0]["redemptionLocations"][0]["neighborhood"] %>
+				<% else %>
+					Multiple Locations
+				<% end %>
+			</div>
+			<div id="detail_content_pitch">
+				<%= @deal["pitchHtml"].html_safe %>
+			</div>
+		</div>
+	</div>	
+	<div class="clear">
+	</div>
+</div>
+
+
+<script>
+	FB.init({
+		appId  : '311149802239773',
+		status : true,
+		cookie : true,
+		oauth: true
+	});
+
+	function sendRequestViaMultiFriendSelector() {
+		FB.ui({method: 'apprequests',
+			message: 'Interested in this deal from <%=  @deal["merchant"]["name"] %>?',
+			data: '<%= @deal["id"] %>'
+		}, requestCallback);
+	}
+
+	function requestCallback(response) {
+		var request_id = response.request;
+		var guest_ids = response.to;
+		var groupon_id = '<%= @deal["id"] %>';
+		$.ajax({
+			url: '/facebook_requests_dialog_callback/data',
+			data: { request_id: request_id,
+							guest_ids: guest_ids,
+							groupon_id: groupon_id}
+		});
+	}
+</script>
+
+<script>
+	$('#target').click(function() {
+	  sendRequestViaMultiFriendSelector();
+	});
+</script>
+
+<script>
+	initialize();
+</script>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111214213349) do
+ActiveRecord::Schema.define(:version => 20111219175240) do
 
   create_table "deals", :force => true do |t|
     t.string   "deal_url"
@@ -24,15 +24,16 @@ ActiveRecord::Schema.define(:version => 20111214213349) do
     t.string   "price"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "groupon_id"
   end
 
   create_table "invitations", :force => true do |t|
     t.integer  "proposal_id"
-    t.integer  "user_id"
-    t.string   "rsvp"
+    t.integer  "facebook_user_id"
     t.string   "facebook_request_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "rsvp",                :default => "Maybe"
   end
 
   create_table "locations", :force => true do |t|
@@ -52,7 +53,6 @@ ActiveRecord::Schema.define(:version => 20111214213349) do
 
   create_table "proposals", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "deal_id"
     t.date     "proposed_date"
     t.time     "proposed_time"
     t.integer  "min_companions"
@@ -61,6 +61,9 @@ ActiveRecord::Schema.define(:version => 20111214213349) do
     t.integer  "event_created"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "groupon_id"
+    t.datetime "proposed_datetime"
+    t.string   "facebook_event_id"
   end
 
   create_table "users", :force => true do |t|

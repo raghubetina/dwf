@@ -4,31 +4,63 @@ class MainController < ApplicationController
     
   end
   
-  def facebook_requests_dialog_callback
+  def facebook_requests_dialog_callback    
+    proposal = Proposal.new
+    proposal.user_id = session[:user_id]
+    proposal.groupon_id = params["groupon_id"]
+    proposal.save
+    
+    guest_ids = params["guest_ids"]
+    guest_ids.each do |guest_id|
+      invitation = Invitation.new
+      invitation.proposal_id = proposal.id
+      invitation.facebook_user_id = guest_id.to_i
+      invitation.facebook_request_id = params["request_id"]
+      invitation.save
+    end
   end
   
   # TODO Use Real-Time Updates to keep data fresh
   def facebook_auth_response_callback
-    facebook_user_id = params[:facebook_user_id]
-    facebook_access_token = params[:facebook_access_token]
-    if user = User.find_by_facebook_user_id(facebook_user_id)
-      # existing user
+    if params["unknown"]
+      reset_session
     else
-      user = User.new
-      response = JSON.parse(open("https://graph.facebook.com/me?access_token=#{facebook_access_token}").read)
-      user.facebook_user_id = response["id"]      
-      user.first_name = response["first_name"]      
-      user.last_name = response["last_name"]      
-      user.location_id = response["location"]["id"]      
-      user.location_name = response["location"]["name"]     
-      user.gender = response["gender"]      
-      user.timezone = response["timezone"]      
-      user.updated = response["updated"]
-    end
+      facebook_user_id = params[:facebook_user_id]
+      facebook_access_token = params[:facebook_access_token]
+      if user = User.find_by_facebook_user_id(facebook_user_id)
+        # existing user
+      else
+        user = User.new
+        response = JSON.parse(open("https://graph.facebook.com/me?access_token=#{facebook_access_token}").read)
+        user.facebook_user_id = facebook_user_id
+        if response["first_name"] 
+          user.first_name = response["first_name"]     
+        end
+        if response["last_name"] 
+          user.last_name = response["last_name"]    
+        end  
+        #TODO Clean this up
+        if response["location"] && response["location"]["id"] 
+          user.location_id = response["location"]["id"]  
+        end    
+        if response["location"] && response["location"]["name"]
+          user.location_name = response["location"]["name"]
+        end  
+        if response["gender"]
+          user.gender = response["gender"] 
+        end     
+        if response["timezone"]
+          user.timezone = response["timezone"]
+        end    
+        if response["updated"]
+          user.updated = response["updated"]
+        end
+      end
     
-    user.facebook_access_token = facebook_access_token
-    user.save
-    session[:user_id] = user.id
+      user.facebook_access_token = facebook_access_token
+      user.save
+      session[:user_id] = user.id
+    end
   end
   
   def test_requests
@@ -45,7 +77,12 @@ class MainController < ApplicationController
   def deal_detail
     deal_id = params[:deal_id]
     @deal = JSON.parse(open("https://api.groupon.com/v2/deals/#{deal_id}.json?client_id=7da6100853a410b2713f7172cd780948216dc395").read)["deal"]
-    
+    logger.debug @deal["options"].inspect
+    @option = @deal['options'].first
+    @location = @option['redemptionLocations'].first if @option['redemptionLocations'].any?
+    if @location && @location["lat"] && @location["lng"]
+       @coords = [ @location["lat"].to_f, @location["lng"].to_f ]
+    end
   end
   
 end

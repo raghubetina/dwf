@@ -2,10 +2,10 @@
 
 <table>
   <tr>
+    <th>ID</th>
     <th>User</th>
-    <th>Deal</th>
-    <th>Proposed date</th>
-    <th>Proposed time</th>
+    <th>Groupon ID</th>
+    <th>Proposed Datetime</th>
     <th>Min companions</th>
     <th>Max companions</th>
     <th>Tipped</th>
@@ -17,10 +17,10 @@
 
 <% @proposals.each do |proposal| %>
   <tr>
+    <td><%= proposal.id %></td>
     <td><%= proposal.user_id %></td>
-    <td><%= proposal.deal_id %></td>
-    <td><%= proposal.proposed_date %></td>
-    <td><%= proposal.proposed_time %></td>
+    <td><%= proposal.groupon_id %></td>
+    <td><%= proposal.proposed_datetime %></td>
     <td><%= proposal.min_companions %></td>
     <td><%= proposal.max_companions %></td>
     <td><%= proposal.tipped %></td>

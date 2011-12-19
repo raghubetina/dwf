@@ -14,7 +14,7 @@
 <% @invitations.each do |invitation| %>
   <tr>
     <td><%= invitation.proposal_id %></td>
-    <td><%= invitation.user_id %></td>
+    <td><%= invitation.facebook_user_id %></td>
     <td><%= invitation.rsvp %></td>
     <td><%= invitation.facebook_request_id %></td>
     <td><%= link_to 'Show', invitation %></td>

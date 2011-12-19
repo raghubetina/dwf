@@ -22,7 +22,7 @@ module MainHelper
         display = display + display_concat + "#{minutes}m"
         display_concat = ' '
       end
-      display = display + display_concat + "#{seconds}s"
+      # display = display + display_concat + "#{seconds}s"
       display
     end
 end

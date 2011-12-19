@@ -1,4 +1,9 @@
 DealmeIn::Application.routes.draw do
+  
+  get "proposals/latest"
+  
+  get "rsvp/:proposal_id/:rsvp", :controller => "invitations", :action => "update"
+  
   get "main/index"
   
   get "main/connected"
