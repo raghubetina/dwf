@@ -2,7 +2,12 @@ class ProposalsController < ApplicationController
   # GET /proposals
   # GET /proposals.json
   def index
-    @my_proposals = current_user.proposals
+    if current_user.proposals.any?
+      @my_proposals = current_user.proposals
+    else
+      @my_proposals = []
+    end
+    
     @friends_proposals = Array.new
     Invitation.find_all_by_facebook_user_id(current_user.facebook_user_id).each do |invitation|
       @friends_proposals << invitation.proposal
