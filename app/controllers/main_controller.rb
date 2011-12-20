@@ -4,6 +4,27 @@ class MainController < ApplicationController
     
   end
   
+  def facebook_notification_callback
+    # request_ids_string = params[:request_ids]
+    # request_ids = request_ids_string.split(",").collect{ |s| s.to_i }
+    # 
+    # request_ids.each do |request_id|
+    #   uri = URI.parse("https://graph.facebook.com/#{request_id+"_"+current_user.facebook_user_id}?access_token=#{current_user.facebook_access_token}")
+    # 
+    #   http = Net::HTTP.new(uri.host, uri.port)
+    #   http.use_ssl = true
+    #   http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    # 
+    #   request = Net::HTTP::Delete.new(uri.request_uri)
+    # 
+    #   response = http.request(request)
+    #   puts "-----------------------------------NOTIFICATION DELETION-----------------------------------"
+    #   puts response
+    # end
+    # 
+    # 
+  end
+  
   def facebook_requests_dialog_callback    
     proposal = Proposal.new
     proposal.user_id = session[:user_id]
@@ -67,7 +88,31 @@ class MainController < ApplicationController
   end
   
   def deals
+    # if params[:request_ids]
+    #   request_ids_string = params[:request_ids]
+    #   request_ids = request_ids_string.split(",").collect{ |s| s.to_i }
+    # 
+    #   request_ids.each do |request_id|
+    #     uri = URI.parse("https://graph.facebook.com/#{request_id.to_s+"_"+current_user.facebook_user_id.to_s}?access_token=#{current_user.facebook_access_token}")
+    # 
+    #     http = Net::HTTP.new(uri.host, uri.port)
+    #     http.use_ssl = true
+    #     http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    # 
+    #     request = Net::HTTP::Delete.new(uri.request_uri)
+    # 
+    #     response = http.request(request)
+    #     puts "-----------------------------------NOTIFICATION DELETION-----------------------------------"
+    #     puts response
+    #   end
+    # else
+  
+  
+  
     @deals = JSON.parse(open("https://api.groupon.com/v2/deals.json?client_id=7da6100853a410b2713f7172cd780948216dc395&show=title,announcementTitle,grid4ImageUrl,sidebarImageUrl,grid6ImageUrl,options,highlightsHtml").read)["deals"]
+
+  
+  
   end
   
   def deals_layout

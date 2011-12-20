@@ -139,7 +139,7 @@ class InvitationsController < ApplicationController
       
       proposal.facebook_event_id = JSON.parse(response.body)["id"]
       proposal.save
-      
+      #TODO Accept incoming notification clicks and delete Graph Objects
       
       logger.debug yeses
       

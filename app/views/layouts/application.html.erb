@@ -20,7 +20,7 @@
 	<script>
 		window.fbAsyncInit = function() {
 			FB.init({
-				appId      : '311149802239773',
+				appId      : '305028186196668',
 				status     : true, 
 				cookie     : true,
 				xfbml      : true,
@@ -34,6 +34,7 @@
 						url: '/facebook_auth_response_callback/data',
 						data: { facebook_access_token: facebook_access_token, facebook_user_id: facebook_user_id }
 					});
+					$("div.link_to_proposals").show();
 			  }	else if (response.status === 'not_authorized') {
 					    //
 				}
@@ -55,9 +56,11 @@
 	</script>
 	
 	<div id="all_content" style="width: 960px; margin: auto;">
-	
+		<div class="link_to_proposals" style="float: right; display: none;">
+			<a href="/proposals"><%= image_tag("invitations_button.png") %></a>
+		</div>
 		<div style="margin: 20px 0 20px 40px;">
-			<a href="http://localhost:3000/main/deals"><%= image_tag("logo.png") %></a>
+			<a href="/main/deals"><%= image_tag("logo.png") %></a>
 
 			<div class="facebook_login" style="display: none; float: right; margin-right: 45px; margin-top: 20px">
 				<div class="fb-login-button" data-scope="email,create_event">
@@ -68,7 +71,7 @@
 			</script>
 			<script>
 				FB.init({
-					appId: '311149802239773',
+					appId: '305028186196668',
 					cookie: true,
 					status: true,
 					xfbml: true,	
@@ -76,6 +79,7 @@
 				});
 				FB.Event.subscribe('auth.login', function () {
 					$("div.facebook_login").fadeToggle("10000");
+					$("div.link_to_proposals").fadeToggle("10000");
 					FB.getLoginStatus(function(response) {
 					  if (response.authResponse) {
 							var facebook_access_token = response.authResponse.accessToken;

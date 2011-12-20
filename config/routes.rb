@@ -1,6 +1,7 @@
 DealmeIn::Application.routes.draw do
   
   get "proposals/latest"
+  get "proposals/latest_invitation"
   
   get "rsvp/:proposal_id/:rsvp", :controller => "invitations", :action => "update"
   
@@ -21,6 +22,7 @@ DealmeIn::Application.routes.draw do
   get "facebook_auth_response_callback/:data", :controller => "main", :action => "facebook_auth_response_callback"
 
   root :to => 'main#deals'
+  
   resources :locations
   resources :deals
   resources :invitations

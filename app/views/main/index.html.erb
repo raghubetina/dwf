@@ -2,7 +2,7 @@
 <script>
 	window.fbAsyncInit = function() {
 		FB.init({
-			appId      : '311149802239773',
+			appId      : '305028186196668',
 			status     : true, 
 			cookie     : true,
 			xfbml      : true,
@@ -16,7 +16,7 @@
 					url: '/facebook_auth_response_callback/data',
 					data: { facebook_access_token: facebook_access_token, facebook_user_id: facebook_user_id},
 					success: function() {	
-	    			window.location = "http://localhost:3000/main/connected";
+	    			window.location = "/main/connected";
 					}
 				});
 		  } else {
@@ -46,7 +46,7 @@
 </script>
 <script>
 	FB.init({
-		appId: '311149802239773', cookie: true,
+		appId: '305028186196668', cookie: true,
 		status: true, xfbml: true
 	});
 		FB.Event.subscribe('auth.login', function () {

@@ -146,8 +146,8 @@
 							<p>No minimum number of companions set by proposal creator.</p>
 						<% end %>
 						<div class="actions">
-					    <a href="<%= "http://localhost:3000/rsvp/#{@proposal.id}/Yes" %>"><%= image_tag("count_me_in_button.png") %></a>
-						  <a href="<%= "http://localhost:3000/rsvp/#{@proposal.id}/No" %>"><%= image_tag("no_thanks_button.png") %></a>
+					    <a href="<%= "/rsvp/#{@proposal.id}/Yes" %>"><%= image_tag("count_me_in_button.png") %></a>
+						  <a href="<%= "/rsvp/#{@proposal.id}/No" %>"><%= image_tag("no_thanks_button.png") %></a>
 					  </div>
 					</div>
 				<% end %>
@@ -197,7 +197,7 @@
 
 <script>
 	FB.init({
-		appId  : '311149802239773',
+		appId  : '305028186196668',
 		status : true,
 		cookie : true,
 		oauth: true
