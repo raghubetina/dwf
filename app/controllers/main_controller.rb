@@ -109,7 +109,7 @@ class MainController < ApplicationController
   
   
   
-    @deals = JSON.parse(open("https://api.groupon.com/v2/deals.json?client_id=7da6100853a410b2713f7172cd780948216dc395&show=title,announcementTitle,grid4ImageUrl,sidebarImageUrl,grid6ImageUrl,options,highlightsHtml").read)["deals"]
+    @deals = JSON.parse(open("https://api.groupon.com/v2/deals.json?client_id=7da6100853a410b2713f7172cd780948216dc395&division_id=chicago&show=title,announcementTitle,grid4ImageUrl,sidebarImageUrl,grid6ImageUrl,options,highlightsHtml").read)["deals"]
 
   
   
