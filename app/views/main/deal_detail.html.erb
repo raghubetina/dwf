@@ -1,10 +1,10 @@
-<script type="text/javascript"
-    src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDYnan9mz4BbB9lwaoV_euxD8-ifJZ-uBk&sensor=false">
-</script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDYnan9mz4BbB9lwaoV_euxD8-ifJZ-uBk&sensor=false" type="text/javascript"></script>
 
 <script type="text/javascript">
   function initialize() {
-    var latlng = new google.maps.LatLng(<%= @coords %>);
+    var latlng = new google.maps.LatLng(<%= @lat %>, <%= @lng %>);
     var myOptions = {
 		  panControl: false,
 		  mapTypeControl: false,

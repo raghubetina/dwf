@@ -26,11 +26,13 @@ class ProposalsController < ApplicationController
     @deal = JSON.parse(open("https://api.groupon.com/v2/deals/#{@proposal.groupon_id}.json?client_id=7da6100853a410b2713f7172cd780948216dc395").read)["deal"]
     if @proposal.proposed_datetime
       @default_datetime = @proposal.proposed_datetime.strftime("%m/%d/%Y @ %l:%M %P")
-    end
-    @option = @deal['options'].first
-    @location = @option['redemptionLocations'].first if @option['redemptionLocations'].any?
+    end    
+    
+    @option = @deal["options"].first
+    @location = @option["redemptionLocations"].first if @option["redemptionLocations"].any?
     if @location && @location["lat"] && @location["lng"]
-       @coords = [ @location["lat"].to_f, @location["lng"].to_f ]
+       @lat = @location["lat"].to_f 
+       @lng = @location["lng"].to_f
     end
     
     if @proposal.proposed_datetime
