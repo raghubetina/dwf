@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(:version => 20111219175240) do
   end
 
   create_table "invitations", :force => true do |t|
-    t.bigint  "proposal_id"
-    t.bigint  "facebook_user_id"
+    t.integer  "proposal_id"
+    t.string  "facebook_user_id"
     t.string   "facebook_request_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20111219175240) do
   end
 
   create_table "locations", :force => true do |t|
-    t.bigint  "deal_id"
+    t.integer  "deal_id"
     t.string   "street_address_1"
     t.string   "street_address_2"
     t.string   "postal_code"
@@ -52,13 +52,13 @@ ActiveRecord::Schema.define(:version => 20111219175240) do
   end
 
   create_table "proposals", :force => true do |t|
-    t.bigint  "user_id"
+    t.integer  "user_id"
     t.date     "proposed_date"
     t.time     "proposed_time"
-    t.bigint  "min_companions"
-    t.bigint  "max_companions"
-    t.bigint  "tipped"
-    t.bigint  "event_created"
+    t.integer  "min_companions"
+    t.integer  "max_companions"
+    t.integer  "tipped"
+    t.integer  "event_created"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "groupon_id"
