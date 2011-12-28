@@ -27,7 +27,7 @@
 				oauth      : true,
 			});
 			FB.getLoginStatus(function(response) {
-			  if (response.status === 'connected') {
+			  if (response.authResponse) {
 					var facebook_access_token = response.authResponse.accessToken;
 					var facebook_user_id = response.authResponse.userID;
 					$.ajax({
@@ -35,13 +35,13 @@
 						data: { facebook_access_token: facebook_access_token, facebook_user_id: facebook_user_id }
 					});
 					$("div.link_to_proposals").show();
-			  }	else if (response.status === 'not_authorized') {
-					$.ajax({
-						url: '/facebook_auth_response_callback/data',
-						data: { unknown: "1"}
-					});
-			    $("div.facebook_login").show();
-				}
+			  }	// else if (response.status === 'not_authorized') {
+			  // 					$.ajax({
+			  // 						url: '/facebook_auth_response_callback/data',
+			  // 						data: { unknown: "1"}
+			  // 					});
+			  // 			    $("div.facebook_login").show();
+			  // 				}
 				else {
 					$.ajax({
 						url: '/facebook_auth_response_callback/data',
