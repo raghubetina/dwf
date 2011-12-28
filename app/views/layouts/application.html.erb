@@ -35,13 +35,13 @@
 						data: { facebook_access_token: facebook_access_token, facebook_user_id: facebook_user_id }
 					});
 					$("div.link_to_proposals").show();
-			  }	// else if (response.status === 'not_authorized') {
-			  // 					$.ajax({
-			  // 						url: '/facebook_auth_response_callback/data',
-			  // 						data: { unknown: "1"}
-			  // 					});
-			  // 			    $("div.facebook_login").show();
-			  // 				}
+			  }	else if (response.status === 'not_authorized') {
+					$.ajax({
+						url: '/facebook_auth_response_callback/data',
+						data: { unknown: "1"}
+					});
+			    $("div.authorize_app").show();
+				}
 				else {
 					$.ajax({
 						url: '/facebook_auth_response_callback/data',
@@ -68,7 +68,12 @@
 
 			<div class="facebook_login" style="display: none; float: right; margin-right: 45px; margin-top: 20px">
 				<div class="fb-login-button" data-scope="email,create_event">
-			    Connect to Facebook
+			    Login to Facebook
+			  </div>
+			</div>
+			<div class="authorize_app" style="display: none; float: right; margin-right: 45px; margin-top: 20px">
+				<div class="fb-login-button" data-scope="email,create_event">
+			    Authorize this App
 			  </div>
 			</div>	
 			<script src="http://connect.facebook.net/en_US/all.js">
