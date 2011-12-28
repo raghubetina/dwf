@@ -1,12 +1,12 @@
 class CreateProposals < ActiveRecord::Migration
   def change
     create_table :proposals do |t|
-      t.integer :user_id
+      t.bigint :user_id
       t.string :groupon_id
       t.datetime :proposed_datetime
-      t.integer :min_companions
-      t.integer :max_companions
-      t.integer :tipped
+      t.bigint :min_companions
+      t.bigint :max_companions
+      t.bigint :tipped
       t.string :facebook_event_id
 
       t.timestamps
