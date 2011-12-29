@@ -23,7 +23,7 @@ class ProposalsController < ApplicationController
   # GET /proposals/1.json
   def show
     @proposal = Proposal.find(params[:id])
-    @deal = JSON.parse(open("https://api.groupon.com/v2/deals/#{@proposal.groupon_id}.json?client_id=7da6100853a410b2713f7172cd780948216dc395").read)["deal"]
+    @deal = JSON.parse(open("https://api.groupon.com/v2/deals/#{@proposal.groupon_id}.json?client_id=7da6100853a410b2713f7172cd780948216dc395&referral_id=uu3838769").read)["deal"]
     if @proposal.proposed_datetime
       @default_datetime = @proposal.proposed_datetime.strftime("%m/%d/%Y @ %l:%M %P")
     end    

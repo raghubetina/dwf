@@ -70,7 +70,7 @@
 		
 			<div id="deal_detail_left_content" class="highlight" style="float: right">
 				<a href="#" id="target"><%= image_tag("invite_button.png") %></a>
-				<a href="<%= @deal["options"][0]["buyUrl"] %>" target="_blank"><%= image_tag("buy_button.png") %></a>
+				<a href="<%= @deal["dealUrl"] %>" target="_blank"><%= image_tag("buy_button.png") %></a>
 			</div>
 		
 		</div>
@@ -139,7 +139,7 @@
 						<% if @proposal.min_companions %>
 							<p>Minimum companions needed to tip: <%= @proposal.min_companions %></p>
 							<% if @proposal.min_companions - @guests.count {|guest| guest[1] == "Yes" } == 0 %> 
-								<p>Deal tipped! Go <a href="<%= @deal["options"][0]["buyUrl"] %>" target="_blank">BUY</a> your Groupon!</p>
+								<p>Deal tipped! Go <a href="<%= @deal["dealUrl"] %>" target="_blank">BUY</a> your Groupon!</p>
 							<% end %>
 						<% else %>
 							<p>No minimum number of companions set by proposal creator.</p>
@@ -159,7 +159,7 @@
 					<% if @proposal.min_companions %>
 						<p><%= pluralize(@guests.count {|guest| guest[1] == "Yes" }, "companions") %> committed -- 
 							<% if @proposal.min_companions - @guests.count {|guest| guest[1] == "Yes" } == 0 %> 
-								the party's on! Go <a href="<%= @deal["options"][0]["buyUrl"] %>" target="_blank">BUY</a> your Groupon!
+								the party's on! Go <a href="<%= @deal["dealUrl"] %>" target="_blank">BUY</a> your Groupon!
 							<% else %>
 								<%= @proposal.min_companions - @guests.count {|guest| guest[1] == "Yes" } %> more needed for the deal to tip!
 							<% end %>

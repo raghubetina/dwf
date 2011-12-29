@@ -121,7 +121,7 @@ class MainController < ApplicationController
   
   def deal_detail
     deal_id = params[:deal_id]
-    @deal = JSON.parse(open("https://api.groupon.com/v2/deals/#{deal_id}.json?client_id=7da6100853a410b2713f7172cd780948216dc395").read)["deal"]
+    @deal = JSON.parse(open("https://api.groupon.com/v2/deals/#{deal_id}.json?client_id=7da6100853a410b2713f7172cd780948216dc395&referral_id=uu3838769").read)["deal"]
     @option = @deal["options"].first
     @location = @option["redemptionLocations"].first if @option["redemptionLocations"].any?
     if @location && @location["lat"] && @location["lng"]

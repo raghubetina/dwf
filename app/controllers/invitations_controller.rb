@@ -73,7 +73,7 @@ class InvitationsController < ApplicationController
       proposal.tipped = 1
       proposal.save
       
-      deal = JSON.parse(open("https://api.groupon.com/v2/deals/#{proposal.groupon_id}.json?client_id=7da6100853a410b2713f7172cd780948216dc395").read)["deal"]
+      deal = JSON.parse(open("https://api.groupon.com/v2/deals/#{proposal.groupon_id}.json?client_id=7da6100853a410b2713f7172cd780948216dc395&referral_id=uu3838769").read)["deal"]
       if deal["options"][0]["redemptionLocations"].any?
         location = deal["options"][0]["redemptionLocations"][0]
         location1= nil
