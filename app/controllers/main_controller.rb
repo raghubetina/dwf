@@ -29,6 +29,7 @@ class MainController < ApplicationController
     proposal = Proposal.new
     proposal.user_id = session[:user_id]
     proposal.groupon_id = params["groupon_id"]
+    proposal.announcement_title = params["announcement_title"]
     proposal.save
     
     guest_ids = params["guest_ids"]
@@ -118,6 +119,14 @@ class MainController < ApplicationController
   def deals_layout
     
   end
+  
+  #TODO Deal with errors from Groupon API, e.g., 
+  # {
+  #   "error": {
+  #     "httpCode": 404,
+  #     "message": "Unable to find deal"
+  #   }
+  # }
   
   def deal_detail
     deal_id = params[:deal_id]

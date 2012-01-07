@@ -73,6 +73,8 @@ class InvitationsController < ApplicationController
       proposal.tipped = 1
       proposal.save
       
+      #TODO This address needs to be saved into the proposal model when it is created, and add the ability to select an option when there are multiple
+      
       deal = JSON.parse(open("https://api.groupon.com/v2/deals/#{proposal.groupon_id}.json?client_id=7da6100853a410b2713f7172cd780948216dc395&referral_id=uu3838769").read)["deal"]
       if deal["options"][0]["redemptionLocations"].any?
         location = deal["options"][0]["redemptionLocations"][0]

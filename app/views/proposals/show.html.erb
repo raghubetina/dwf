@@ -196,7 +196,7 @@
 
 <script>
 	FB.init({
-		appId  : '305028186196668',
+		appId  : '311149802239773',
 		status : true,
 		cookie : true,
 		oauth: true
@@ -213,11 +213,17 @@
 		var request_id = response.request;
 		var guest_ids = response.to;
 		var groupon_id = '<%= @deal["id"] %>';
+		var announcement_title = '<%= @deal["announcementTitle"] %>';
 		$.ajax({
 			url: '/facebook_requests_dialog_callback/data',
 			data: { request_id: request_id,
 							guest_ids: guest_ids,
-							groupon_id: groupon_id}
+							groupon_id: groupon_id,
+							announcement_title: announcement_title},
+			success: function(data) {
+				//this is the redirect
+				document.location.href="/proposals/latest";
+			}
 		});
 	}
 </script>

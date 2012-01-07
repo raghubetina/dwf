@@ -9,7 +9,7 @@
 
 <% @my_proposals.each do |proposal| %>
   <tr>
-    <td><%= link_to proposal.groupon_id, proposal_path(proposal) %></td>
+    <td><%= link_to proposal.announcement_title, proposal_path(proposal) %></td>
     <td><%= if proposal.proposed_datetime then proposal.proposed_datetime.strftime("%m/%d/%Y @ %l:%M %P") else "" end%></td>
     <td><%= proposal.min_companions %></td>
     <td><%= proposal.tipped %></td>
@@ -29,7 +29,7 @@
 
 <% @friends_proposals.each do |proposal| %>
   <tr>
-    <td><%= link_to proposal.groupon_id, proposal_path(proposal) %></td>
+    <td><%= link_to proposal.announcement_title, proposal_path(proposal) %></td>
     <td><%= if proposal.proposed_datetime then proposal.proposed_datetime.strftime("%m/%d/%Y @ %l:%M %P") else "" end%></td>
     <td><%= proposal.min_companions %></td>
     <td><%= proposal.tipped %></td>

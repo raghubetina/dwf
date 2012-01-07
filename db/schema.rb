@@ -11,29 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111219175240) do
-
-  create_table "deals", :force => true do |t|
-    t.string   "deal_url"
-    t.string   "large_image_url"
-    t.string   "title"
-    t.string   "start_at"
-    t.string   "expires_at"
-    t.string   "buy_url"
-    t.string   "details"
-    t.string   "price"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "groupon_id"
-  end
+ActiveRecord::Schema.define(:version => 20111213204759) do
 
   create_table "invitations", :force => true do |t|
     t.integer  "proposal_id"
-    t.string  "facebook_user_id"
+    t.string   "facebook_user_id"
+    t.string   "rsvp",                :default => "Maybe"
     t.string   "facebook_request_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "rsvp",                :default => "Maybe"
   end
 
   create_table "locations", :force => true do |t|
@@ -53,17 +39,15 @@ ActiveRecord::Schema.define(:version => 20111219175240) do
 
   create_table "proposals", :force => true do |t|
     t.integer  "user_id"
-    t.date     "proposed_date"
-    t.time     "proposed_time"
+    t.string   "groupon_id"
+    t.string   "announcement_title"
+    t.datetime "proposed_datetime"
     t.integer  "min_companions"
     t.integer  "max_companions"
     t.integer  "tipped"
-    t.integer  "event_created"
+    t.string   "facebook_event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "groupon_id"
-    t.datetime "proposed_datetime"
-    t.string   "facebook_event_id"
   end
 
   create_table "users", :force => true do |t|
@@ -76,10 +60,9 @@ ActiveRecord::Schema.define(:version => 20111219175240) do
     t.string   "location_name"
     t.string   "gender"
     t.string   "timezone"
+    t.string   "updated"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "password_digest"
-    t.string   "updated"
   end
 
 end
